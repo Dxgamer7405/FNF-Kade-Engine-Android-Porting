@@ -1,4 +1,4 @@
-# FNF-Android-Porting:
+# Kade-Engine-Android-Porting:
 
 The things im using when i port a Kade Engine mod to android
 
@@ -14,16 +14,21 @@ haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-andro
 ```
 
 Also you need to install Sirox extension-webm for android support
-
 ```cmd
 haxelib git extension-webm https://github.com/Sirox228/extension-webm.git
 ```
 
-And you need to install git Newgrounds because git version has android support
-
+And you need to install the github version of Newgrounds because it has android support
 ```cmd
 haxelib git newgrounds https://github.com/Geokureli/Newgrounds.git
 ```
+
+Last thing is to install M.A Jigsaw Linc_Luajit because it has android support
+```cmd
+haxelib git linc_luajit https://github.com/MAJigsaw77/linc_luajit.git
+```
+
+**For ppl that doesn't have a pc, I left a yml file to compile with github actions. Everytime you do a commit it makes a build. Be sure to enable workflows.**
 
 2. Download the repository code and paste it in your source code folder
 
