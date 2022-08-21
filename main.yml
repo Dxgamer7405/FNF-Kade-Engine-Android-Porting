@@ -52,9 +52,9 @@ jobs:
           haxelib install flixel-ui
           haxelib install flixel-addons
           haxelib git linc_luajit https://github.com/MAJigsaw77/linc_luajit.git
+	  haxelib git extension-webm https://github.com/Sirox228/extension-webm.git
           haxelib git newgrounds https://github.com/Geokureli/Newgrounds.git
           haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git
-	  haxelib git extension-webm https://github.com/Sirox228/extension-webm.git
           haxelib list
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
