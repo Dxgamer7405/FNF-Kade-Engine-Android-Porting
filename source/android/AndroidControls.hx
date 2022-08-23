@@ -84,7 +84,7 @@ class AndroidControls extends FlxSpriteGroup
 		{
 			if (FlxG.save.data.hitboxOpacity == null)
 			{
-				FlxG.save.data.hitboxOpacity = 0.2;
+				FlxG.save.data.hitboxOpacity = 0.3;
 				FlxG.save.flush();
 			}
 
