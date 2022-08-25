@@ -23,7 +23,7 @@ using StringTools;
 
 /**
  * ...
- * @author: Saw (M.A. Jigsaw)
+ * @author Mihai Alexandru (M.A. Jigsaw)
  */
 class SUtil
 {

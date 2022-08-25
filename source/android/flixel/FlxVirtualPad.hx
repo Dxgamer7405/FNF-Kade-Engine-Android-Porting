@@ -39,8 +39,8 @@ enum FlxActionMode
  * A gamepad.
  * It's easy to customize the layout.
  *
- * @original author Ka Wing Chin
- * @modification's author: Saw (M.A. Jigsaw)
+ * @author Ka Wing Chin
+ * @author Mihai Alexandru (M.A. Jigsaw)
  */
 class FlxVirtualPad extends FlxSpriteGroup
 {

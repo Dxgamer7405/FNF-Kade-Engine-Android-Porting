@@ -7,6 +7,9 @@ import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxPoint;
 import flixel.util.FlxDestroyUtil;
 
+/**
+ * @author Mihai Alexandru (M.A. Jigsaw)
+ */
 class AndroidControls extends FlxSpriteGroup
 {
 	public var virtualPad:FlxVirtualPad;

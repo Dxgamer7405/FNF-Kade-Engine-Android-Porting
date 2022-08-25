@@ -13,7 +13,7 @@ import openfl.display.BitmapData;
  * A zone with 4 hint's (A hitbox).
  * It's really easy to customize the layout.
  *
- * @author: Saw (M.A. Jigsaw)
+ * @author Mihai Alexandru (M.A. Jigsaw)
  */
 class FlxHitbox extends FlxSpriteGroup
 {

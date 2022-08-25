@@ -17,7 +17,7 @@ import openfl.utils.Assets;
  * A virtual thumbstick - useful for input on mobile devices.
  *
  * @author Ka Wing Chin
- * @modification's Saw (M.A. Jigsaw) to work only with touch and to use custom assets
+ * @author Mihai Alexandru (M.A. Jigsaw) to work only with touch and to use custom assets
  */
 class FlxJoyStick extends FlxSpriteGroup
 {
