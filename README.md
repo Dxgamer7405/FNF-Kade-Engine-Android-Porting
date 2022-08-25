@@ -693,6 +693,17 @@ with
 if (PlayerSettings.player1.controls.ACCEPT #if android || justTouched #end && dialogueStarted == true)
 ```
 
+14. How to make pause work 
+
+In Playstate.hx replace
+```haxe
+if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
+```
+with
+```haxe
+if (FlxG.keys.justPressed.ENTER #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
+```
+
 MOST STUFF ISN'T EXPLAINED SO I SUGGEST YOU TO LOOK TO MY PORTS OF KADE ENGINE AND KADE ENGINE MODS
 
 ## Credits:
