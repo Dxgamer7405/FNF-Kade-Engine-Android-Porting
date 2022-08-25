@@ -662,7 +662,7 @@ for (touch in FlxG.touches.list)
 }
 #end
 ```
-For making dialogues go, after
+For making dialogues go, in DialogueBox.hx after
 ```haxe
 if (dialogueOpened && !dialogueStarted)
 {
