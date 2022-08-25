@@ -785,6 +785,471 @@ with
 var result = LuaL.dostring(lua, openfl.utils.Assets.getText("assets/data/" + PlayState.SONG.song.toLowerCase() + "/modchart.lua")); // execute le file
 ```
 
+You finished with ModchartState.hx. Next is to edit PasueSubState.hx
+
+Replace
+```haxe
+#if windows
+import llua.Lua;
+#end
+```
+with
+```haxe
+#if (windows || android)
+import llua.Lua;
+#end
+```
+then replace
+```haxe
+#if windows
+if (PlayState.luaModchart != null)
+{
+	PlayState.luaModchart.die();
+	PlayState.luaModchart = null;
+}
+#end
+```
+with
+```haxe
+#if (windows || android)
+if (PlayState.luaModchart != null)
+{
+	PlayState.luaModchart.die();
+	PlayState.luaModchart = null;
+}
+#end
+```
+
+And you're also done with PauseSubState.hx. Last thing to do is to edit Playstate.hx
+
+replace
+```haxe
+#if windows
+executeModchart = openfl.utils.Assets.exists("assets/data/" + PlayState.SONG.song.toLowerCase() + "/modchart.lua");
+#end
+```haxe
+#if (windows || android)
+executeModchart = openfl.utils.Assets.exists("assets/data/" + PlayState.SONG.song.toLowerCase() + "/modchart.lua");
+#end
+```
+then replace
+```haxe
+#if windows
+public static var luaModchart:ModchartState = null;
+#end
+```
+with
+```haxe
+#if (windows || android)
+public static var luaModchart:ModchartState = null;
+#end
+```
+then replace
+```haxe
+#if windows
+if (executeModchart)
+{
+	luaModchart = ModchartState.createModchartState();
+	luaModchart.executeState('start',[PlayState.SONG.song]);
+}
+#end
+```
+with
+```
+#if (windows || android)
+if (executeModchart)
+{
+	luaModchart = ModchartState.createModchartState();
+	luaModchart.executeState('start',[PlayState.SONG.song]);
+}
+#end
+```
+then replace
+```
+#if windows
+if (executeModchart && luaModchart != null && songStarted)
+{
+	luaModchart.setVar('songPos',Conductor.songPosition);
+	luaModchart.setVar('hudZoom', camHUD.zoom);
+	luaModchart.setVar('cameraZoom',FlxG.camera.zoom);
+	luaModchart.executeState('update', [elapsed]);
+
+	for (i in luaWiggles)
+	{
+		trace('wiggle le gaming');
+		i.update(elapsed);
+	}
+
+	/*for (i in 0...strumLineNotes.length) {
+		var member = strumLineNotes.members[i];
+		member.x = luaModchart.getVar("strum" + i + "X", "float");
+		member.y = luaModchart.getVar("strum" + i + "Y", "float");
+		member.angle = luaModchart.getVar("strum" + i + "Angle", "float");
+	}*/
+
+	FlxG.camera.angle = luaModchart.getVar('cameraAngle', 'float');
+	camHUD.angle = luaModchart.getVar('camHudAngle','float');
+
+	if (luaModchart.getVar("showOnlyStrums",'bool'))
+	{
+		healthBarBG.visible = false;
+		kadeEngineWatermark.visible = false;
+		healthBar.visible = false;
+		iconP1.visible = false;
+		iconP2.visible = false;
+		scoreTxt.visible = false;
+	}
+	else
+	{
+		healthBarBG.visible = true;
+		kadeEngineWatermark.visible = true;
+		healthBar.visible = true;
+		iconP1.visible = true;
+		iconP2.visible = true;
+		scoreTxt.visible = true;
+	}
+
+	var p1 = luaModchart.getVar("strumLine1Visible",'bool');
+	var p2 = luaModchart.getVar("strumLine2Visible",'bool');
+
+	for (i in 0...4)
+	{
+		strumLineNotes.members[i].visible = p1;
+		if (i <= playerStrums.length)
+			playerStrums.members[i].visible = p2;
+	}
+}
+#end
+```
+with
+```haxe
+#if (windows || android)
+if (executeModchart && luaModchart != null && songStarted)
+{
+	luaModchart.setVar('songPos',Conductor.songPosition);
+	luaModchart.setVar('hudZoom', camHUD.zoom);
+	luaModchart.setVar('cameraZoom',FlxG.camera.zoom);
+	luaModchart.executeState('update', [elapsed]);
+
+	for (i in luaWiggles)
+	{
+		trace('wiggle le gaming');
+		i.update(elapsed);
+	}
+
+	/*for (i in 0...strumLineNotes.length) {
+		var member = strumLineNotes.members[i];
+		member.x = luaModchart.getVar("strum" + i + "X", "float");
+		member.y = luaModchart.getVar("strum" + i + "Y", "float");
+		member.angle = luaModchart.getVar("strum" + i + "Angle", "float");
+	}*/
+
+	FlxG.camera.angle = luaModchart.getVar('cameraAngle', 'float');
+	camHUD.angle = luaModchart.getVar('camHudAngle','float');
+
+	if (luaModchart.getVar("showOnlyStrums",'bool'))
+	{
+		healthBarBG.visible = false;
+		kadeEngineWatermark.visible = false;
+		healthBar.visible = false;
+		iconP1.visible = false;
+		iconP2.visible = false;
+		scoreTxt.visible = false;
+	}
+	else
+	{
+		healthBarBG.visible = true;
+		kadeEngineWatermark.visible = true;
+		healthBar.visible = true;
+		iconP1.visible = true;
+		iconP2.visible = true;
+		scoreTxt.visible = true;
+	}
+
+	var p1 = luaModchart.getVar("strumLine1Visible",'bool');
+	var p2 = luaModchart.getVar("strumLine2Visible",'bool');
+
+	for (i in 0...4)
+	{
+		strumLineNotes.members[i].visible = p1;
+		if (i <= playerStrums.length)
+			playerStrums.members[i].visible = p2;
+	}
+}
+#end
+```
+then replace
+```haxe
+#if windows
+if (luaModchart != null)
+{
+	luaModchart.die();
+	luaModchart = null;
+}
+#end
+```
+with
+```haxe
+#if (windows || android)
+if (luaModchart != null)
+{
+	luaModchart.die();
+	luaModchart = null;
+}
+#end
+```
+then replace
+```haxe
+#if windows
+if (luaModchart != null)
+{
+	luaModchart.die();
+	luaModchart = null;
+}
+#end
+```
+with
+```haxe
+#if (windows || android)
+if (luaModchart != null)
+{
+	luaModchart.die();
+	luaModchart = null;
+}
+#end
+```// there are 2 of this near actually, replace both with this
+then replace
+```haxe
+#if windows
+if (luaModchart != null)
+	luaModchart.setVar("mustHit",PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection);
+#end
+```
+with
+```haxe
+#if (windows || android)
+if (luaModchart != null)
+	luaModchart.setVar("mustHit",PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection);
+#end
+```
+then replace
+```haxe
+#if windows
+if (luaModchart != null)
+{
+	offsetX = luaModchart.getVar("followXOffset", "float");
+	offsetY = luaModchart.getVar("followYOffset", "float");
+}
+#end
+```
+with
+```haxe
+#if (windows || android)
+if (luaModchart != null)
+{
+	offsetX = luaModchart.getVar("followXOffset", "float");
+	offsetY = luaModchart.getVar("followYOffset", "float");
+}
+#end
+```
+then replace
+```haxe
+#if (windows || android)
+if (luaModchart != null)
+	luaModchart.executeState('playerTwoTurn', []);
+#end
+```
+then replace
+```haxe
+#if windows
+if (luaModchart != null)
+{
+	offsetX = luaModchart.getVar("followXOffset", "float");
+	offsetY = luaModchart.getVar("followYOffset", "float");
+}
+#end
+```
+with
+```haxe
+#if (windows || android)
+if (luaModchart != null)
+{
+	offsetX = luaModchart.getVar("followXOffset", "float");
+	offsetY = luaModchart.getVar("followYOffset", "float");
+}
+#end
+```
+then replace
+```haxe
+#if windows
+if (luaModchart != null)
+	luaModchart.executeState('playerOneTurn', []);
+#end
+```
+with
+```haxe
+#if (windows || android)
+if (luaModchart != null)
+	luaModchart.executeState('playerOneTurn', []);
+#end
+```
+then replace
+```haxe
+#if windows
+if (luaModchart != null)
+	luaModchart.executeState('playerTwoSing', [Math.abs(daNote.noteData), Conductor.songPosition]);
+#end
+```
+with
+```haxe
+#if (windows || android)
+if (luaModchart != null)
+	luaModchart.executeState('playerTwoSing', [Math.abs(daNote.noteData), Conductor.songPosition]);
+#end
+```
+then replace
+```haxe
+#if windows
+if (luaModchart != null)
+{
+	luaModchart.die();
+	luaModchart = null;
+}
+#end
+```
+with
+```haxe
+#if (windows || android)
+if (luaModchart != null)
+{
+	luaModchart.die();
+	luaModchart = null;
+}
+#end
+```
+then replace 
+```haxe
+#if windows
+if (luaModchart != null)
+{
+	luaModchart.die();
+	luaModchart = null;
+}
+#end
+```
+with
+```haxe
+#if (windows || android)
+if (luaModchart != null)
+{
+	luaModchart.die();
+	luaModchart = null;
+}
+#end
+```
+then replace
+```haxe
+#if windows
+if (luaModchart != null){
+if (controls.LEFT_P){luaModchart.executeState('keyPressed',["left"]);};
+if (controls.DOWN_P){luaModchart.executeState('keyPressed',["down"]);};
+if (controls.UP_P){luaModchart.executeState('keyPressed',["up"]);};
+if (controls.RIGHT_P){luaModchart.executeState('keyPressed',["right"]);};
+};
+#end
+```
+with
+```haxe
+#if (windows || android)
+if (luaModchart != null){
+if (controls.LEFT_P){luaModchart.executeState('keyPressed',["left"]);};
+if (controls.DOWN_P){luaModchart.executeState('keyPressed',["down"]);};
+if (controls.UP_P){luaModchart.executeState('keyPressed',["up"]);};
+if (controls.RIGHT_P){luaModchart.executeState('keyPressed',["right"]);};
+};
+#end
+```
+then replace
+```haxe
+#if windows
+if (luaModchart != null)
+	luaModchart.executeState('playerOneMiss', [direction, Conductor.songPosition]);
+#end
+```
+with
+```haxe
+#if (windows || android)
+if (luaModchart != null)
+	luaModchart.executeState('playerOneMiss', [direction, Conductor.songPosition]);
+#end
+```
+then replace
+```haxe
+#if windows
+if (luaModchart != null)
+	luaModchart.executeState('playerOneSing', [note.noteData, Conductor.songPosition]);
+#end
+```
+with
+```haxe
+#if (windows || android)
+if (luaModchart != null)
+	luaModchart.executeState('playerOneSing', [note.noteData, Conductor.songPosition]);
+#end
+```
+then replace
+```haxe
+#if windows
+if (executeModchart && luaModchart != null)
+{
+	luaModchart.setVar('curStep',curStep);
+	luaModchart.executeState('stepHit',[curStep]);
+}
+#end
+```
+with
+```haxe
+#if (windows || android)
+if (executeModchart && luaModchart != null)
+{
+	luaModchart.setVar('curStep',curStep);
+	luaModchart.executeState('stepHit',[curStep]);
+}
+#end
+```
+and finally, replace
+```haxe
+#if windows
+if (executeModchart && luaModchart != null)
+{
+	luaModchart.setVar('curBeat',curBeat);
+	luaModchart.executeState('beatHit',[curBeat]);
+}
+#end
+```
+with
+```haxe
+#if (windows || android)
+if (executeModchart && luaModchart != null)
+{
+	luaModchart.setVar('curBeat',curBeat);
+	luaModchart.executeState('beatHit',[curBeat]);
+}
+#end
+```
+
+To avoid a crash after you finish a song, remove
+```haxe
+if (!loadRep)
+	rep.SaveReplay(saveNotes);
+else
+{
+	FlxG.save.data.botplay = false;
+	FlxG.save.data.scrollSpeed = 1;
+	FlxG.save.data.downscroll = false;
+}
+```// this code is found on function endSong():Void
+
 MOST STUFF ISN'T EXPLAINED SO I SUGGEST YOU TO LOOK TO MY PORTS OF KADE ENGINE AND KADE ENGINE MODS
 
 ## Credits:
