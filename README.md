@@ -730,7 +730,9 @@ import llua.LuaL;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
-``` //note just replace the if windows with if (windows || android), pretty much self explanatory, makes support for android
+``` 
+just replace the if windows with if (windows || android), pretty much self explanatory, makes support for android
+
 replace
 ```haxe
 var data:BitmapData = BitmapData.fromFile(Sys.getCwd() + "assets/data/" + PlayState.SONG.song.toLowerCase() + '/' + spritePath + ".png");
@@ -996,7 +998,9 @@ if (luaModchart != null)
 	luaModchart = null;
 }
 #end
-```// there are 2 of this near actually, replace both with this
+```
+there are 2 of this near actually, replace both with this.
+
 then replace
 ```haxe
 #if windows
