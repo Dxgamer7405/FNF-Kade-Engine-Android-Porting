@@ -615,7 +615,7 @@ SUtil.saveContent("your file name", ".txt", "lololol");
 
 12. Able to change the android controls in game
 
-before
+In OptionsMenu.hx before
 ```haxe
 super.create();
 ```
