@@ -704,6 +704,87 @@ with
 if (FlxG.keys.justPressed.ENTER #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
 ```
 
+15.
+
+To make modcharts work, in Project.xml replace
+```haxe
+<haxelib name="linc_luajit" if "windows"/>
+```
+with
+```haxe
+<haxelib name="linc_luajit"/>
+```
+now go to ModchartState.hx and in the lines where you import stuff replace
+```haxe
+#if windows
+import flixel.tweens.FlxEase;
+import openfl.filters.ShaderFilter;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
+import openfl.geom.Matrix;
+import openfl.display.BitmapData;
+import lime.app.Application;
+import flixel.FlxSprite;
+import llua.Convert;
+import llua.Lua;
+import llua.State;
+import llua.LuaL;
+import flixel.FlxBasic;
+import flixel.FlxCamera;
+import flixel.FlxG;
+```
+with
+```haxe
+#if (windows || android)
+import flixel.tweens.FlxEase;
+import openfl.filters.ShaderFilter;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
+import openfl.geom.Matrix;
+import openfl.display.BitmapData;
+import lime.app.Application;
+import flixel.FlxSprite;
+import llua.Convert;
+import llua.Lua;
+import llua.State;
+import llua.LuaL;
+import flixel.FlxBasic;
+import flixel.FlxCamera;
+import flixel.FlxG;
+``` //note just replace the if windows with if (windows || android), pretty much self explanatory, makes support for android
+replace
+```haxe
+var data:BitmapData = BitmapData.fromFile(Sys.getCwd() + "assets/data/" + PlayState.SONG.song.toLowerCase() + '/' + spritePath + ".png");
+```
+with
+```haxe
+var data:BitmapData = BitmapData.fromFile(SUtil.getPath() + "assets/data/" + PlayState.SONG.song.toLowerCase() + '/' + spritePath + ".png");
+```
+and
+```haxe
+sprite.frames = FlxAtlasFrames.fromSparrow(FlxGraphic.fromBitmapData(data), Sys.getCwd() + "assets/data/" + PlayState.SONG.song.toLowerCase() + "/" + spritePath + ".xml");
+```
+with
+```haxe
+sprite.frames = FlxAtlasFrames.fromSparrow(FlxGraphic.fromBitmapData(data), SUtil.getPath() + "assets/data/" + PlayState.SONG.song.toLowerCase() + "/" + spritePath + ".xml");
+```
+replace
+```haxe
+var data:BitmapData = BitmapData.fromFile(Sys.getCwd() + "assets/data/" + PlayState.SONG.song.toLowerCase() + '/' + spritePath + ".png");
+```
+with
+```haxe
+var data:BitmapData = BitmapData.fromFile(SUtil.getPath() + "assets/data/" + PlayState.SONG.song.toLowerCase() + '/' + spritePath + ".png");
+```
+and replace
+```haxe
+var result = LuaL.dofile(lua, Paths.lua(PlayState.SONG.song.toLowerCase() + "/modchart")); // execute le file
+```
+with
+```haxe
+var result = LuaL.dostring(lua, openfl.utils.Assets.getText("assets/data/" + PlayState.SONG.song.toLowerCase() + "/modchart.lua")); // execute le file
+```
+
 MOST STUFF ISN'T EXPLAINED SO I SUGGEST YOU TO LOOK TO MY PORTS OF KADE ENGINE AND KADE ENGINE MODS
 
 ## Credits:
