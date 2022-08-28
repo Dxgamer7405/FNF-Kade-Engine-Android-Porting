@@ -88,10 +88,13 @@ Before the line <!--Custom--> add
 	<haxedef name="HXCPP_CHECK_POINTER" if="release" />
 	<haxedef name="HXCPP_STACK_LINE" if="release" />
 
-	<!--Android-Internet-Connection-->
+	<!--Android-Things-->
 	<android permission="android.permission.ACCESS_NETWORK_STATE" />
 	<android permission="android.permission.ACCESS_WIFI_STATE" />
 	<android permission="android.permission.INTERNET" />
+	<android target-sdk-version="29" />
+	<android gradle-version="5.4.1" />
+	<android gradle-plugin="3.5.0" />
 ```
 
 4. Setup Controls.hx
