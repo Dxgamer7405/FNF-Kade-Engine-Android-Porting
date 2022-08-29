@@ -461,7 +461,7 @@ now on every state/substate add (this is the most confusing part, I suggest to c
 addVirtualPad(LEFT_FULL, A_B);
 #end
 
-if you want to remove it at some moment use
+//if you want to remove it at some moment use
 #if android
 removeVirtualPad();
 #end
@@ -481,7 +481,7 @@ addPadCamera();
 addAndroidControls();
 #end
 
-if you want to remove it at some moment use
+//if you want to remove it at some moment use
 #if android
 removeAndroidControls();
 #end
