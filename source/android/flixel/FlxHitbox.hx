@@ -1,13 +1,13 @@
 package android.flixel;
 
 import android.flixel.FlxButton;
+import flash.display.Shape;
+import flash.display.BitmapData;
 import flixel.FlxG;
 import flixel.util.FlxDestroyUtil;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 import flixel.group.FlxSpriteGroup;
-import openfl.display.Shape;
-import openfl.display.BitmapData;
 
 /**
  * A zone with 4 hint's (A hitbox).
