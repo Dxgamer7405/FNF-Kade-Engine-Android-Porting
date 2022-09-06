@@ -687,11 +687,11 @@ if (FlxG.keys.justPressed.ENTER #if android || FlxG.android.justReleased.BACK #e
 15.
 
 To make modcharts work, in Project.xml replace
-```haxe
+```xml
 <haxelib name="linc_luajit" if "windows"/>
 ```
 with
-```haxe
+```xml
 <haxelib name="linc_luajit"/>
 ```
 now go to ModchartState.hx and in the lines where you import stuff replace
@@ -715,7 +715,7 @@ import flixel.FlxG;
 ```
 with
 ```haxe
-#if (windows || android)
+#if cpp
 import flixel.tweens.FlxEase;
 import openfl.filters.ShaderFilter;
 import flixel.tweens.FlxTween;
@@ -732,7 +732,7 @@ import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
 ``` 
-just replace the if windows with if (windows || android), pretty much self explanatory, makes support for android
+just replace the if windows with if cpp, which means that it supports cpp stuff including android
 
 replace
 ```haxe
@@ -777,7 +777,7 @@ import llua.Lua;
 ```
 with
 ```haxe
-#if (windows || android)
+#if cpp
 import llua.Lua;
 #end
 ```
@@ -793,7 +793,7 @@ if (PlayState.luaModchart != null)
 ```
 with
 ```haxe
-#if (windows || android)
+#if cpp
 if (PlayState.luaModchart != null)
 {
 	PlayState.luaModchart.die();
@@ -809,8 +809,10 @@ replace
 #if windows
 executeModchart = openfl.utils.Assets.exists("assets/data/" + PlayState.SONG.song.toLowerCase() + "/modchart.lua");
 #end
+```
+with
 ```haxe
-#if (windows || android)
+#if cpp
 executeModchart = openfl.utils.Assets.exists("assets/data/" + PlayState.SONG.song.toLowerCase() + "/modchart.lua");
 #end
 ```
@@ -822,7 +824,7 @@ public static var luaModchart:ModchartState = null;
 ```
 with
 ```haxe
-#if (windows || android)
+#if cpp
 public static var luaModchart:ModchartState = null;
 #end
 ```
@@ -838,7 +840,7 @@ if (executeModchart)
 ```
 with
 ```
-#if (windows || android)
+#if cpp
 if (executeModchart)
 {
 	luaModchart = ModchartState.createModchartState();
@@ -905,7 +907,7 @@ if (executeModchart && luaModchart != null && songStarted)
 ```
 with
 ```haxe
-#if (windows || android)
+#if cpp
 if (executeModchart && luaModchart != null && songStarted)
 {
 	luaModchart.setVar('songPos',Conductor.songPosition);
@@ -972,7 +974,7 @@ if (luaModchart != null)
 ```
 with
 ```haxe
-#if (windows || android)
+#if cpp
 if (luaModchart != null)
 {
 	luaModchart.die();
@@ -992,7 +994,7 @@ if (luaModchart != null)
 ```
 with
 ```haxe
-#if (windows || android)
+#if cpp
 if (luaModchart != null)
 {
 	luaModchart.die();
@@ -1011,7 +1013,7 @@ if (luaModchart != null)
 ```
 with
 ```haxe
-#if (windows || android)
+#if cpp
 if (luaModchart != null)
 	luaModchart.setVar("mustHit",PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection);
 #end
@@ -1028,7 +1030,7 @@ if (luaModchart != null)
 ```
 with
 ```haxe
-#if (windows || android)
+#if cpp
 if (luaModchart != null)
 {
 	offsetX = luaModchart.getVar("followXOffset", "float");
@@ -1038,7 +1040,14 @@ if (luaModchart != null)
 ```
 then replace
 ```haxe
-#if (windows || android)
+#if windows
+if (luaModchart != null)
+	luaModchart.executeState('playerTwoTurn', []);
+#end
+```
+with
+```haxe
+#if cpp
 if (luaModchart != null)
 	luaModchart.executeState('playerTwoTurn', []);
 #end
@@ -1055,7 +1064,7 @@ if (luaModchart != null)
 ```
 with
 ```haxe
-#if (windows || android)
+#if cpp
 if (luaModchart != null)
 {
 	offsetX = luaModchart.getVar("followXOffset", "float");
@@ -1072,7 +1081,7 @@ if (luaModchart != null)
 ```
 with
 ```haxe
-#if (windows || android)
+#if cpp
 if (luaModchart != null)
 	luaModchart.executeState('playerOneTurn', []);
 #end
@@ -1086,7 +1095,7 @@ if (luaModchart != null)
 ```
 with
 ```haxe
-#if (windows || android)
+#if cpp
 if (luaModchart != null)
 	luaModchart.executeState('playerTwoSing', [Math.abs(daNote.noteData), Conductor.songPosition]);
 #end
@@ -1103,7 +1112,7 @@ if (luaModchart != null)
 ```
 with
 ```haxe
-#if (windows || android)
+#if cpp
 if (luaModchart != null)
 {
 	luaModchart.die();
@@ -1123,7 +1132,7 @@ if (luaModchart != null)
 ```
 with
 ```haxe
-#if (windows || android)
+#if cpp
 if (luaModchart != null)
 {
 	luaModchart.die();
@@ -1144,7 +1153,7 @@ if (controls.RIGHT_P){luaModchart.executeState('keyPressed',["right"]);};
 ```
 with
 ```haxe
-#if (windows || android)
+#if cpp
 if (luaModchart != null){
 if (controls.LEFT_P){luaModchart.executeState('keyPressed',["left"]);};
 if (controls.DOWN_P){luaModchart.executeState('keyPressed',["down"]);};
@@ -1162,7 +1171,7 @@ if (luaModchart != null)
 ```
 with
 ```haxe
-#if (windows || android)
+#if cpp
 if (luaModchart != null)
 	luaModchart.executeState('playerOneMiss', [direction, Conductor.songPosition]);
 #end
@@ -1176,7 +1185,7 @@ if (luaModchart != null)
 ```
 with
 ```haxe
-#if (windows || android)
+#if cpp
 if (luaModchart != null)
 	luaModchart.executeState('playerOneSing', [note.noteData, Conductor.songPosition]);
 #end
@@ -1193,7 +1202,7 @@ if (executeModchart && luaModchart != null)
 ```
 with
 ```haxe
-#if (windows || android)
+#if cpp
 if (executeModchart && luaModchart != null)
 {
 	luaModchart.setVar('curStep',curStep);
@@ -1213,7 +1222,7 @@ if (executeModchart && luaModchart != null)
 ```
 with
 ```haxe
-#if (windows || android)
+#if cpp
 if (executeModchart && luaModchart != null)
 {
 	luaModchart.setVar('curBeat',curBeat);
