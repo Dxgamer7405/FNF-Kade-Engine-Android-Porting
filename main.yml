@@ -51,11 +51,11 @@ jobs:
           haxelib run lime setup flixel
           haxelib install flixel-ui
           haxelib install flixel-addons
-          haxelib git linc_luajit https://github.com/MAJigsaw77/linc_luajit.git
+          haxelib git linc_luajit https://github.com/MAJigsaw77/linc_luajit
           haxelib git extension-webm https://github.com/Sirox228/extension-webm
           haxelib git polymod https://github.com/MasterEric/polymod
-          haxelib git newgrounds https://github.com/Geokureli/Newgrounds.git
-          haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git
+          haxelib install newgrounds 1.3.0
+          haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools
           haxelib list
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
@@ -67,6 +67,7 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
+          haxelib set newgrounds 1.3.0
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
